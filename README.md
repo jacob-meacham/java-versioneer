@@ -1,6 +1,6 @@
 Versioneer
 ==========
-[ ![Download](https://api.bintray.com/packages/jacob-meacham/maven/java-versioneer/images/download.svg) ](https://bintray.com/jacob-meacham/maven/java-versioneer/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/jacob-meacham/maven/java-versioneer/images/download.svg) ](https://bintray.com/jacob-meacham/maven/java-versioneer/_latestVersion) [![Build Status](https://travis-ci.org/jacob-meacham/java-versioneer.svg?branch=develop)](https://travis-ci.org/jacob-meacham/java-versioneer)
 
 Versioneer is a composable java package for introspecting the version of a Java application.
 
