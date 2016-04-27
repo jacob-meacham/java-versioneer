@@ -9,20 +9,38 @@ import java.io.IOException;
 import java.util.Optional;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class GitVersionLocator implements VersionLocator {
+    private final String path;
+
+    public GitVersionLocator() {
+        this(null);
+    }
+
+    public GitVersionLocator(String path) {
+        if (path == null) {
+            this.path = ClassLoader.getSystemClassLoader().getResource(".").getPath();
+        } else {
+            this.path = path;
+        }
+    }
 
     @Override
     public final Optional<String> getVersion() {
         try {
-            String path = ClassLoader.getSystemClassLoader().getResource(".").getPath();
-            Git git = Git.open(new File(path));
-            String version = git.describe().call();
-            return Optional.ofNullable(version);
+            FileRepositoryBuilder fileRepoBuilder = new FileRepositoryBuilder().findGitDir(new File(path));
+            if (fileRepoBuilder.getGitDir() == null) {
+                // Not found
+                return Optional.empty();
+            }
+
+            try (Git git = new Git(fileRepoBuilder.build())) {
+                String version = git.describe().call();
+                return Optional.ofNullable(version);
+            }
         } catch (IOException | GitAPIException e) {
             return Optional.empty();
         }
-
     }
-
 }
