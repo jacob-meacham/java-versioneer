@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.palantir:gradle-baseline-java:0.2.4"
+        classpath 'com.palantir:jacoco-coverage:0.3.0'
+    }
+}
+
+plugins {
+    id 'com.palantir.git-version' version '0.2.0'
+}
+
+repositories {
+    jcenter()
+}
+
+
+version gitVersion()
+group 'com.jemonjam.versioneer'
+
+apply plugin: 'java'
+apply plugin: 'com.palantir.baseline-config'
+apply plugin: 'com.palantir.baseline-checkstyle'
+apply plugin: 'com.palantir.baseline-eclipse'
+apply plugin: 'com.palantir.baseline-findbugs'
+apply plugin: 'com.palantir.baseline-idea'
+
+sourceCompatibility = 1.8
+
+findbugsMain {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+apply plugin: 'jacoco'
+apply plugin: 'com.palantir.jacoco-coverage'
+apply plugin: 'com.palantir.jacoco-full-report'
+
+jacocoTestReport {
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco/html"
+    }
+    executionData = files('build/jacoco/test.exec')
+}
+
+jacocoCoverage {
+    // Enforce minimum code coverage of 50% for every Java file.
+    // TODO: Ratchet these up!
+    fileThreshold 1.0
+    reportThreshold 1.0, LINE
+}
