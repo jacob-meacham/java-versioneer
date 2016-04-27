@@ -38,6 +38,8 @@ The result is cached so the path is only searched once
 
 Advanced Usage
 --------------
+See the [javadocs](http://jemonjam.com/java-versioneer/) for the full API documentation.
+
 All Versioneer functionality is exposed as a VersionLocator. Currently supported VersionLocators are:
 * GitVersionLocator - Returns the output of `git describe` from the specified repo (current directory by default)
 * FileVersionLocator - Returns the contets of the specified file
