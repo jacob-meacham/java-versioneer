@@ -5,6 +5,7 @@ package com.jemonjam.versioneer.impl;
 
 import com.jemonjam.versioneer.api.VersionLocator;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -27,8 +28,12 @@ public class ClasspathVersionLocator implements VersionLocator {
     @Override
     public final Optional<String> getVersion() {
         try (InputStream in = this.getClass().getClassLoader().getResourceAsStream(versionFile);
-                Scanner scanner = new Scanner(in).useDelimiter("\\A")) {
+                Scanner scanner = new Scanner(in, StandardCharsets.UTF_8.name()).useDelimiter("\\A")) {
             return Optional.of(scanner.next());
+        } catch (NullPointerException e) {
+            return Optional.empty();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             return Optional.empty();
         }

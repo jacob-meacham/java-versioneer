@@ -11,6 +11,7 @@ buildscript {
 
 plugins {
     id 'com.palantir.git-version' version '0.2.0'
+    id "com.jfrog.bintray" version "1.6"
 }
 
 repositories {
@@ -45,8 +46,8 @@ eclipse {
 
 findbugsMain {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.enabled = true
+        html.enabled = false
     }
 }
 
@@ -78,4 +79,31 @@ jacocoCoverage {
 
     // Whitelist the default versioneer from coverage.
     fileThreshold 0.0, "DefaultVersioneer.java"
+}
+
+// Publishing
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['maven']
+    pkg {
+        repo = 'maven'
+        name = 'java-versioneer'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/jacob-meacham/java-versioneer.git'
+        version {
+            name = version
+            released  = new Date()
+            vcsTag = version
+        }
+    }
 }
