@@ -8,6 +8,21 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Returns a version parsed from the specified path with the specified pattern.
+ *
+ * The default path is the current directory, and the default pattern is a relaxed semver version.
+ * Example versions
+ * <ul>
+ *  <li>/path/to/server-0.1.0/myjar.jar -- 0.1.0</li>
+ *  <li>/path/to/server-0.1.0-foo/myjar.jar -- 0.1.0-foo</li>
+ *  <li>/path/to/server-11.1.100-foo/myjar.jar -- 11.1.100-foo</li>
+ *  <li>/path/to/server-11.1/myjar.jar -- Not present</li>
+ *  <li>/path/to/server-11-1-1/myjar.jar -- Not present</li>
+ * </ul>
+ *
+ * @author jmeacham
+ */
 public class PathVersionLocator implements VersionLocator {
     public static final String DEFAULT_VERSION_FORMAT = "(\\d+\\.\\d+\\.\\d+-*[0-9A-Za-z-]*)";
     private final Pattern pattern;

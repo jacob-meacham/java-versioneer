@@ -66,3 +66,12 @@ VersionLocator cachedVersion = new CachedVersionLocator(versionChain);
 cachedVersion.getVersion();
 cachedVersion.getVersion(); // Will return the cached result, whether or not the version was specified.
 ```
+
+By default, the ClasspathVersionLocator looks for a file named .VERSIONEER on the classpath. Your build or publish tool can write this for you at build/publish time. For exampl, if you're using gradle, you can add 
+```
+task writeRevisionToFile << {
+    new File("$rootProject.projectDir/src/main/resources", ".VERSIONEER").text = version
+}
+ 
+build.dependsOn(writeRevisionToFile)
+```

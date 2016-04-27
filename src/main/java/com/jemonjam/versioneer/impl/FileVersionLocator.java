@@ -10,6 +10,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+/**
+ * Returns a version from the given file, using a UTF-8 charset.
+ *
+ * @author jmeacham
+ */
 public class FileVersionLocator implements VersionLocator {
     private final String path;
 

@@ -9,6 +9,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Returns a version found from a file on the Classpath.
+ * <br>
+ * The default file to look for is .VERSIONEER, which you can write in your build or publish steps. For example,
+ * if you're using gradle, you can use:
+ * <br>
+ * <br>
+ * task writeRevisionToFile &lt;&lt; {<br>
+ *   new File("$rootProject.projectDir/src/main/resources", ".VERSIONEER").text = version<br>
+ * }<br>
+ * <br>
+ * build.dependsOn(writeRevisionToFile)
+ *
+ * @author jmeacham
+ */
 public class ClasspathVersionLocator implements VersionLocator {
     public static final String DEFAULT_VERSION_FILE = ".VERSIONEER";
     private final String versionFile;
