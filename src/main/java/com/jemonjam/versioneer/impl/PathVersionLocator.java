@@ -13,15 +13,15 @@ public class PathVersionLocator implements VersionLocator {
     private final Pattern pattern;
 
     public PathVersionLocator() {
-        this(null);
+        this(DEFAULT_FORMAT);
     }
 
     public PathVersionLocator(final String versionFormat) {
-        if (versionFormat != null) {
-            pattern = Pattern.compile(versionFormat);
-        } else {
-            pattern = Pattern.compile(DEFAULT_FORMAT);
+        if (versionFormat == null) {
+            throw new IllegalArgumentException("versionFormat is required.");
         }
+
+        pattern = Pattern.compile(versionFormat);
     }
 
     @Override
