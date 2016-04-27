@@ -22,7 +22,7 @@
         <property name="lineSeparator" value="lf"/>
     </module>
     <module name="RegexpHeader">
-        <property name="header" value="^/\*$\n^ \* Copyright \d{4} Palantir Technologies, Inc\. All rights reserved\.$"/>
+        <property name="header" value="^/\*$\n^ \* Copyright \d{4} Jacob Meacham \(jemonjam.com\)\.$"/>
         <property name="fileExtensions" value=".java,.ts"/>
     </module>
     <module name="RegexpMultiline"> <!-- Development Practices: Writing good unit tests -->
@@ -122,6 +122,7 @@
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
         <module name="Indentation"> <!-- Java Style Guide: Block indentation: +4 spaces -->
+            <property name="basicOffset" value="4"/>
             <property name="arrayInitIndent" value="8"/>
             <property name="lineWrappingIndentation" value="8"/>
         </module>
@@ -327,7 +328,7 @@
             <property name="allowedAnnotations" value="Override, Test"/>
             <property name="allowThrowsTagsForSubclasses" value="true"/>
         </module>
-        <module name="JavadocStyle"/> <!-- Java Style Guide: Javadoc -->
+        <module name="JavadocStyle" /> <!-- Java Style Guide: Javadoc -->
         <module name="JavadocTagContinuationIndentation"> <!-- Java Style Guide: At-clauses -->
             <property name="offset" value="0"/>
         </module>
@@ -353,9 +354,6 @@
             <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="SingleLineJavadoc"/> <!-- Java Style Guide: General form -->
-        <module name="SummaryJavadocCheck"> <!-- Java Coding Guidelines: Javadoc -->
-            <property name="forbiddenSummaryFragments" value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
-        </module>
 
         <!-- Stricter checks end -->
     </module>

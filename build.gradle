@@ -17,18 +17,24 @@ repositories {
     jcenter()
 }
 
-
 version gitVersion()
 group 'com.jemonjam.versioneer'
 
 apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
 apply plugin: 'com.palantir.baseline-config'
 apply plugin: 'com.palantir.baseline-checkstyle'
 apply plugin: 'com.palantir.baseline-eclipse'
 apply plugin: 'com.palantir.baseline-findbugs'
 apply plugin: 'com.palantir.baseline-idea'
 
-sourceCompatibility = 1.8
+eclipse {
+    project {
+        name = 'versioneer'
+    }
+}
 
 findbugsMain {
     reports {
