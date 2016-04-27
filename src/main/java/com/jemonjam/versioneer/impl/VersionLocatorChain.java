@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Creates a chain of {@link VersionLocator} and returns the first non-empty version.
+ *
+ * The locators are queried in order, and the first non-empty version is returned.
+ * If all versions are empty, an empty version is returned.
+ *
+ * @author jmeacham
+ */
 public class VersionLocatorChain implements VersionLocator {
     private final List<VersionLocator> locators = new ArrayList<>();
 
