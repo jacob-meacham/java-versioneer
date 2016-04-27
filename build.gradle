@@ -73,6 +73,7 @@ jacocoCoverage {
     // Partials
     fileThreshold 0.5, "GitVersionLocator.java"
     fileThreshold 0.4, BRANCH, "GitVersionLocator.java"
+    fileThreshold 0.3, COMPLEXITY, "GitVersionLocator.java"
 
     fileThreshold 0.3, "ClasspathVersionLocator.java"
 
