@@ -29,4 +29,9 @@ public class FileVersionLocatorTests {
         Optional<String> version = locator.getVersion();
         assertFalse(version.isPresent());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testBadArgs() {
+        new FileVersionLocator(null);
+    }
 }

@@ -65,8 +65,17 @@ jacocoTestReport {
 }
 
 jacocoCoverage {
-    // Enforce minimum code coverage of 50% for every Java file.
-    // TODO: Ratchet these up!
-    fileThreshold 1.0
-    reportThreshold 1.0, LINE
+    fileThreshold 0.75
+    reportThreshold 0.8, LINE
+
+    // Partials
+    fileThreshold 0.5, "GitVersionLocator.java"
+    fileThreshold 0.4, BRANCH, "GitVersionLocator.java"
+
+    fileThreshold 0.3, "ClasspathVersionLocator.java"
+
+    fileThreshold 0.66, METHOD, "PathVersionLocator.java"
+
+    // Whitelist the default versioneer from coverage.
+    fileThreshold 0.0, "DefaultVersioneer.java"
 }

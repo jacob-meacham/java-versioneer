@@ -35,4 +35,9 @@ public class ClasspathVersionLocatorTests {
 
         assertFalse(version.isPresent());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testBadArgs() {
+        new ClasspathVersionLocator(null);
+    }
 }

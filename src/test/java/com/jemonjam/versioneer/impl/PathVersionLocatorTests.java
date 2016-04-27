@@ -34,4 +34,14 @@ public class PathVersionLocatorTests {
         version = locator.getVersion();
         assertFalse(version.isPresent());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testBadPath() {
+        new PathVersionLocator(null, PathVersionLocator.DEFAULT_VERSION_FORMAT);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testBadPattern() {
+        new PathVersionLocator("a/b/0/c/d", null);
+    }
 }

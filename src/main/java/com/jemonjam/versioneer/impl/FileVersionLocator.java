@@ -13,6 +13,9 @@ public class FileVersionLocator implements VersionLocator {
     private final String path;
 
     public FileVersionLocator(final String path) {
+        if (path == null) {
+            throw new IllegalArgumentException("path is required");
+        }
         this.path = path;
     }
 
