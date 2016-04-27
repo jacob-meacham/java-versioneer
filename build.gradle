@@ -1,0 +1,111 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.palantir:gradle-baseline-java:0.2.4"
+        classpath 'com.palantir:jacoco-coverage:0.3.0'
+    }
+}
+
+plugins {
+    id 'com.palantir.git-version' version '0.2.0'
+    id "com.jfrog.bintray" version "1.6"
+}
+
+repositories {
+    jcenter()
+}
+
+version gitVersion()
+group 'com.jemonjam.versioneer'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile 'org.eclipse.jgit:org.eclipse.jgit:4.3.0.201604071810-r'
+
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
+}
+
+apply plugin: 'com.palantir.baseline-config'
+apply plugin: 'com.palantir.baseline-checkstyle'
+apply plugin: 'com.palantir.baseline-eclipse'
+apply plugin: 'com.palantir.baseline-findbugs'
+apply plugin: 'com.palantir.baseline-idea'
+
+eclipse {
+    project {
+        name = 'versioneer'
+    }
+}
+
+findbugsMain {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+apply plugin: 'jacoco'
+apply plugin: 'com.palantir.jacoco-coverage'
+apply plugin: 'com.palantir.jacoco-full-report'
+
+jacocoTestReport {
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco/html"
+    }
+    executionData = files('build/jacoco/test.exec')
+}
+
+jacocoCoverage {
+    fileThreshold 0.75
+    reportThreshold 0.8, LINE
+
+    // Partials
+    fileThreshold 0.5, "GitVersionLocator.java"
+    fileThreshold 0.4, BRANCH, "GitVersionLocator.java"
+    fileThreshold 0.3, COMPLEXITY, "GitVersionLocator.java"
+
+    fileThreshold 0.3, "ClasspathVersionLocator.java"
+
+    fileThreshold 0.66, METHOD, "PathVersionLocator.java"
+
+    // Whitelist the default versioneer from coverage.
+    fileThreshold 0.0, "DefaultVersioneer.java"
+}
+
+// Publishing
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['maven']
+    pkg {
+        repo = 'maven'
+        name = 'java-versioneer'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/jacob-meacham/java-versioneer.git'
+        version {
+            name = version
+            released  = new Date()
+            vcsTag = version
+        }
+    }
+}
