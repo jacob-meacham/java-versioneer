@@ -16,13 +16,13 @@ public class FallbackVersionLocatorTests {
         final String fallback = "fallback version" + System.currentTimeMillis();
         VersionLocator locator = new FallbackVersionLocator(fallback);
         Optional<String> version = locator.getVersion();
-        assertEquals(version.get(), fallback);
+        assertEquals(fallback, version.get());
     }
 
     @Test
     public final void testDefaultFallback() {
         VersionLocator locator = new FallbackVersionLocator();
         Optional<String> version = locator.getVersion();
-        assertEquals(version.get(), FallbackVersionLocator.DEFAULT_FALLBACK);
+        assertEquals(FallbackVersionLocator.DEFAULT_FALLBACK, version.get());
     }
 }

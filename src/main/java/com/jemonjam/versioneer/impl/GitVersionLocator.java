@@ -15,15 +15,11 @@ public class GitVersionLocator implements VersionLocator {
     private final String path;
 
     public GitVersionLocator() {
-        this(null);
+        this(ClassLoader.getSystemClassLoader().getResource(".").getPath());
     }
 
     public GitVersionLocator(String path) {
-        if (path == null) {
-            this.path = ClassLoader.getSystemClassLoader().getResource(".").getPath();
-        } else {
-            this.path = path;
-        }
+        this.path = path;
     }
 
     @Override
