@@ -96,16 +96,17 @@ publishing {
 bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
-    publications = ['maven']
+    publications = ['mavenJava']
     pkg {
         repo = 'maven'
         name = 'java-versioneer'
         licenses = ['MIT']
         vcsUrl = 'https://github.com/jacob-meacham/java-versioneer.git'
         version {
-            name = version
+            name = gitVersion()
             released  = new Date()
-            vcsTag = version
+            vcsTag = gitVersion()
+            description 'versioneer is a composable version searcher for reporting Java application versions.'
         }
     }
 }
