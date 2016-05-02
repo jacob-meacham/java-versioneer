@@ -68,7 +68,7 @@ jacocoTestReport {
 
 jacocoCoverage {
     fileThreshold 0.75
-    reportThreshold 0.8, LINE
+    reportThreshold 0.75, LINE
 
     // Partials
     fileThreshold 0.5, "GitVersionLocator.java"
@@ -81,6 +81,7 @@ jacocoCoverage {
 
     // Whitelist the default versioneer from coverage.
     fileThreshold 0.0, "DefaultVersioneer.java"
+    fileThreshold 0.0, "VersioneerPaths.java"
 }
 
 // Publishing

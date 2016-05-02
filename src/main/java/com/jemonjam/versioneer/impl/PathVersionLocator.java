@@ -4,6 +4,7 @@
 package com.jemonjam.versioneer.impl;
 
 import com.jemonjam.versioneer.api.VersionLocator;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,13 +27,13 @@ import java.util.regex.Pattern;
 public class PathVersionLocator implements VersionLocator {
     public static final String DEFAULT_VERSION_FORMAT = "(\\d+\\.\\d+\\.\\d+-*[0-9A-Za-z-]*)";
     private final Pattern pattern;
-    private final String path;
+    private final Path path;
 
     public PathVersionLocator() {
-        this(ClassLoader.getSystemClassLoader().getResource(".").getPath(), DEFAULT_VERSION_FORMAT);
+        this(VersioneerPaths.getRunningPath(), DEFAULT_VERSION_FORMAT);
     }
 
-    public PathVersionLocator(final String path, final String versionFormat) {
+    public PathVersionLocator(final Path path, final String versionFormat) {
         if (path == null) {
             throw new IllegalArgumentException("path is required.");
         }
@@ -48,7 +49,7 @@ public class PathVersionLocator implements VersionLocator {
     @Override
     public final Optional<String> getVersion() {
         try {
-            Matcher matcher = pattern.matcher(path);
+            Matcher matcher = pattern.matcher(path.toString());
             Optional<String> version = Optional.empty();
             if (matcher.find()) {
                 version = Optional.ofNullable(matcher.group(1));
