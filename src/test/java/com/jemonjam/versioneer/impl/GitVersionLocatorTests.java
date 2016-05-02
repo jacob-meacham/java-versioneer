@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
@@ -39,7 +40,7 @@ public class GitVersionLocatorTests {
         git.commit().setAllowEmpty(true).setMessage("root commit").call();
         git.tag().setAnnotated(true).setName(versionString).setMessage(versionString).call();
 
-        GitVersionLocator locator = new GitVersionLocator(tempDirectory.toString());
+        GitVersionLocator locator = new GitVersionLocator(tempDirectory);
         Optional<String> version = locator.getVersion();
 
         assertEquals(versionString, version.get());
@@ -47,7 +48,7 @@ public class GitVersionLocatorTests {
 
     @Test
     public final void testNoVersion() {
-        GitVersionLocator locator = new GitVersionLocator("/does/not/exist");
+        GitVersionLocator locator = new GitVersionLocator(Paths.get("does/not/exist"));
         Optional<String> version = locator.getVersion();
         assertFalse(version.isPresent());
     }
