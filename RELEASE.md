@@ -1,3 +1,8 @@
+0.2.3
+-----
+**Bug Fixes**
+* Fix a bug when getting the current running path in some cases
+
 0.2.2
 -----
 * Add readme, contributing guidelines, and javadoc.
