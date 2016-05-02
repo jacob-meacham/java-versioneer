@@ -18,14 +18,14 @@ public class FileVersionLocatorTests {
     public final void testGetVersion() {
         Path path = Paths.get("src/test/resources/version.file");
 
-        VersionLocator locator = new FileVersionLocator(path.toString());
+        VersionLocator locator = new FileVersionLocator(path);
         Optional<String> version = locator.getVersion();
         assertEquals("0.3.0-tag", version.get());
     }
 
     @Test
     public final void testNoVersion() {
-        VersionLocator locator = new FileVersionLocator("does/not/exist");
+        VersionLocator locator = new FileVersionLocator(Paths.get("does/not/exist"));
         Optional<String> version = locator.getVersion();
         assertFalse(version.isPresent());
     }

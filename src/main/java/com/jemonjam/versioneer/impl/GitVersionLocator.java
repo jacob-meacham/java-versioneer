@@ -4,8 +4,8 @@
 package com.jemonjam.versioneer.impl;
 
 import com.jemonjam.versioneer.api.VersionLocator;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -27,20 +27,20 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
  * @author jmeacham
  */
 public class GitVersionLocator implements VersionLocator {
-    private final String path;
+    private final Path path;
 
     public GitVersionLocator() {
-        this(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+        this(VersioneerPaths.getRunningPath());
     }
 
-    public GitVersionLocator(String path) {
+    public GitVersionLocator(Path path) {
         this.path = path;
     }
 
     @Override
     public final Optional<String> getVersion() {
         try {
-            FileRepositoryBuilder fileRepoBuilder = new FileRepositoryBuilder().findGitDir(new File(path));
+            FileRepositoryBuilder fileRepoBuilder = new FileRepositoryBuilder().findGitDir(path.toFile());
             if (fileRepoBuilder.getGitDir() == null) {
                 // Not found
                 return Optional.empty();
