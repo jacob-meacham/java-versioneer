@@ -8,7 +8,7 @@ Quick Start
 -----------
 If you're using gradle, to your build.gradle, add
 ```
-compile 'com.jemonjam.versioneer:java-versioneer:0.2.1'
+compile 'com.jemonjam.versioneer:java-versioneer:0.3.0'
 ```
 
 If you're using maven, to you pom.xml, add
@@ -16,7 +16,7 @@ If you're using maven, to you pom.xml, add
 <dependency>
   <groupId>com.jemonjam.versioneer</groupId>
   <artifactId>java-versioneer</artifactId>
-  <version>0.2.1</version>
+  <version>0.3.0</version>
   <type>pom</type>
 </dependency>
 ```

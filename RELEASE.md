@@ -1,3 +1,8 @@
+0.3.0
+-----
+**API Changes**
+* Renamed FallbackVersionLocator to StaticVersionLocator
+
 0.2.3
 -----
 **Bug Fixes**
