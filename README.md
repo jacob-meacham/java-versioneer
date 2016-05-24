@@ -45,7 +45,7 @@ All Versioneer functionality is exposed as a VersionLocator. Currently supported
 * FileVersionLocator - Returns the contets of the specified file
 * PathVersionLocator - Returns a version parsed from the specified path with the specified pattern (current directory and a relaxed [semver](http://semver.org/) version.)
 * ClasspathVersionLocator - Returns the contents of the version file found on the classpath (default file is .VERSIONEER)
-* FallbackVersionLocator - Returns a specified string (default: Development Version)
+* StaticVersionLocator - Returns a specified string (default: Development Version)
 * CachedVersionLocator - Caches the result of an underlying locator
 
 For convenience, VersionLocatorChain allows you to chain together other locators. So, if you wanted to check a specific file, and then a path, and finally the version of a specified git repo, you would write:
